@@ -76,6 +76,9 @@ const Matrix operator *(Matrix& uno, Matrix& dos) {
 int main()
 {
 	Matrix glenm(5,5);
+	Matrix glenm2(5, 5);
 	glenm.setMatVal(3, 4, 5);
-	glenm.printMatrix();
+	glenm2.setMatVal(1, 4, 5);
+	Matrix glenm3 = glenm + glenm2;
+	glenm3.printMatrix();
 }
