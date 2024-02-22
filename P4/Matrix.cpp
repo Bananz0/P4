@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 
-Matrix::Matrix() : rows(10), columns(10) {};
+Matrix::Matrix() : rows(3), columns(3) {};
 Matrix::Matrix(int rowsInput, int colsInput) : rows(rowsInput), columns(colsInput) {
 	data.resize(rows, std::vector<double>(columns, 0));
 }
@@ -45,6 +45,24 @@ const Matrix operator +(Matrix& uno, Matrix& dos) {
 	}
 	return outputMat;
 }
+
+//Matrix Subtraction
+const Matrix operator -(Matrix& uno, Matrix& dos) {
+	if ((uno.getColCount() != dos.getColCount()) || (uno.getRowCount() != dos.getRowCount())) {
+		std::cout << "Cannot add matrices with different orders! \n";
+	}
+
+	Matrix outputMat(uno.getRowCount(), uno.getColCount());
+
+	for (int g = 0; g < uno.getRowCount(); g++) {
+		for (int h = 0; h < uno.getColCount(); h++) {
+			//outputMat.data[g][h] = (uno.data[g][h]) + (dos.data[g][h]);
+			outputMat.setMatVal(g, h, (uno.getMatVal(g, h) - dos.getMatVal(g, h)));
+		}
+	}
+	return outputMat;
+}
+
 
 //Matrix Multiplication
 const Matrix operator *(Matrix& uno, Matrix& dos) {
