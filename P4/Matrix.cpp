@@ -26,8 +26,18 @@ void Matrix::printMatrix() {
 		}
 		std::cout << std::endl;
 	}
-
 };
+void Matrix::printMatrix(Matrix& uno) {
+	std::cout << "Matrix: \n";
+	for (int i = 0; i < uno.getColCount(); i++) {
+		for (int j = 0; j < uno.getRowCount(); j++) {
+			std::cout << uno.getMatVal(i,j) << " ";
+		}
+		std::cout << std::endl;
+	}
+};
+
+
 
 //Matrix Addition
 const Matrix operator +(Matrix& uno, Matrix& dos) {
@@ -49,7 +59,7 @@ const Matrix operator +(Matrix& uno, Matrix& dos) {
 //Matrix Subtraction
 const Matrix operator -(Matrix& uno, Matrix& dos) {
 	if ((uno.getColCount() != dos.getColCount()) || (uno.getRowCount() != dos.getRowCount())) {
-		std::cout << "Cannot add matrices with different orders! \n";
+		std::cout << "Cannot subtract matrices with different orders! \n";
 	}
 
 	Matrix outputMat(uno.getRowCount(), uno.getColCount());
@@ -84,4 +94,16 @@ const Matrix operator *(Matrix& uno, Matrix& dos) {
 		}
 	}
 	return outputMat;
+}
+
+Matrix sigmoid(Matrix& input) {
+	Matrix output(input.getRowCount(), input.getColCount());
+	for (int i = 0; i < input.getRowCount(); ++i) {
+		for (int j = 0; j < input.getColCount(); ++j) {
+			// Calculate sigmoid using element-wise operation
+			double val = input.getMatVal(i, j);
+			output.setMatVal(i, j, 1.0 / (1.0 + exp(-val)));
+		}
+	}
+	return output;
 }
